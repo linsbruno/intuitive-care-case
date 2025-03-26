@@ -66,10 +66,11 @@ public class WebScrapingService {
         // Seleciona todos os links da página
         Elements links = doc.select("a[href]");
 
-        // Filtra apenas os links que terminam com .pdf
+        // Filtra apenas os links que terminam com .pdf e contém "Anexo I" ou "Anexo II" no texto do link
         for (Element link : links) {
             String href = link.attr("abs:href"); // Pega o link absoluto
-            if (href.endsWith(".pdf")) {
+            String text = link.text(); // Texto do link
+            if (href.endsWith(".pdf") && (text.contains("Anexo I") || text.contains("Anexo II"))) {
                 pdfLinks.add(href);
             }
         }
